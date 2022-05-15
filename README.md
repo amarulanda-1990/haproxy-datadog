@@ -1,7 +1,7 @@
 #Proyecto Telematia UAO
 #Estudiantes:    Adrian Varela Rendon, Andres Felipe Marulanda
                 
-#Descripción: Este proyecto consiste en la implementación de un servidor HaProxy con la función de balanceador de carga, se utilizará el DataDog como herramienta de monitoreo y análisis de métricas, para el entorno de prueba se desarrolla dos servidores web utilizando NGix. Se utiliza un ambiente de trabajo en Vagrant todo bajo Centos 8.
+#Descripción: Este proyecto consiste en la implementación de un Cluste de servidores que contiene HaProxy con la función de balanceador de carga, se utilizará el DataDog como herramienta de monitoreo y análisis de métricas, para el entorno de prueba se desarrolla dos servidores web utilizando NGix. Se utiliza un ambiente de trabajo en Vagrant todo bajo Centos 8.
 
 
 #Entorno: 
