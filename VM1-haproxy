@@ -1,0 +1,65 @@
+#Desabilitamos el selinux:
+vim /etc/sysconfig/selinux   (disable)
+
+#Actualizmos nuestra VM:
+dnf update -y
+Reboot
+
+#Instalamos los paquetes del HaProxy
+dnf install haproxy
+
+#Creamos una copia de seguidad del archivo de configuración de HaProxy
+cp /etc/haproxy/haproxy.cfg /etc/haproxy/backuphaproxy.cfg
+
+#Configuramos el archivo haproxy.cfg:
+vim /etc/haproxy/haproxy.cfg
+global
+   log /dev/log local0
+   log /dev/log local1 notice
+   chroot /var/lib/haproxy
+   stats timeout 30s
+   user haproxy
+   group haproxy
+   daemon
+
+defaults
+   mode http
+   log global
+   option httplog
+   option dontlognull
+   timeout connect 5000
+   timeout client 50000
+   timeout server 50000
+
+frontend http_front
+   bind *:80
+   stats uri /haproxy?stats
+   default_backend http_back
+
+backend http_back
+   balance roundrobin
+   server vm2 192.168.50.6:80 check
+   server vm3 192.168.50.7:80 check
+
+# Ejecutarmos el haproxy:
+systemctl start haproxy
+systemctl enable haproxy
+haproxy -c -f /etc/haproxy/haproxy.cfg
+systemctl status haproxy
+
+# Editamos el archivo: 
+vim /etc/rsyslog.conf   
+
+# Y eliminamos los comentarios de las líneas:
+module(load="imudp")
+input(type="imudp" port="514")
+
+# Adicionamos las líneas:
+Vim /etc/rsyslog.d/haproxy.conf
+local2.=info /var/log/haproxy-access.log
+local2.notice /var/log/haproxy-info.log
+
+# Reiniciamos el proceso y lo habilitamos:
+systemctl restart rsyslog
+systemctl enable rsyslog
+
