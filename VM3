@@ -1,0 +1,7 @@
+dnf install nginx -y
+systemctl start nginx
+systemctl enable nginx
+
+#Modificamos el archivo index
+
+echo Servidor WEB 2 > /usr/share/nginx/html/index.html
