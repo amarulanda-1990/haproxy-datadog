@@ -9,3 +9,11 @@
 VM1 ip: 192.168.50.5 (HaProxy, DataDog)
 VM2 ip: 192.168.50.6 (Ngix Servidor web 1)
 VM3 ip: 192.168.50.7 (Ngix Servidor web 2)
+
+Ejecutamos en el siguiente orden(tomamos el Vagrantfile):
+
+1.  Instalamos el HaProxy Instructivo: VM1-haproxy
+2.  Instalamos el Nginx Instructivo: VM2-ngix
+3.  Instalamos el Nginx Instructivo: VM3-ngix
+4.  Creamos la cuenta en DataDog ejecutamos el proceso segun el instructivo: VM1-agentedatadog y procedemos con la integración
+5.  Finalmente probamos en los navegadores del anfitrión 
